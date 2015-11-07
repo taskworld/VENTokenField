@@ -62,7 +62,7 @@
 {
     _highlighted = highlighted;
     UIColor *textColor = highlighted ? [UIColor whiteColor] : self.colorScheme;
-    UIColor *backgroundColor = highlighted ? self.colorScheme : [UIColor clearColor];
+    UIColor *backgroundColor = highlighted ? self.colorScheme : self.backgroundColor;
     self.titleLabel.textColor = textColor;
     self.backgroundView.backgroundColor = backgroundColor;
 }
@@ -72,6 +72,11 @@
     _colorScheme = colorScheme;
     self.titleLabel.textColor = self.colorScheme;
     [self setHighlighted:_highlighted];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
+    self.backgroundView.backgroundColor = backgroundColor;
 }
 
 

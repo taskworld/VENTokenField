@@ -299,6 +299,8 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     for (NSUInteger i = 0; i < [self numberOfTokens]; i++) {
         NSString *title = [self titleForTokenAtIndex:i];
+        UIColor *tokenBackgroundColor = [self backgroundColorForTokenAtIndex:i];
+        NSString *delimiterText = [self delimiterText];
         VENToken *token = [[VENToken alloc] init];
 
         __weak VENToken *weakToken = token;
@@ -307,8 +309,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
             [weakSelf didTapToken:weakToken];
         };
 
-        [token setTitleText:[NSString stringWithFormat:@"%@,", title]];
+        [token setTitleText:[NSString stringWithFormat:@"%@%@", title,delimiterText]];
         token.colorScheme = [self colorSchemeForTokenAtIndex:i];
+        token.backgroundColor = tokenBackgroundColor;
         
         [self.tokens addObject:token];
 
@@ -515,6 +518,23 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     }
     
     return [NSString string];
+}
+
+- (UIColor *)backgroundColorForTokenAtIndex:(NSUInteger)index {
+    if ([self.dataSource respondsToSelector:@selector(tokenField:backgroundColorForTokenAtIndex:)]) {
+        
+        return [self.dataSource tokenField:self backgroundColorForTokenAtIndex:index];
+    }
+    
+    return [UIColor clearColor];
+}
+
+- (NSString *)delimiterText {
+    if ([self.dataSource respondsToSelector:@selector(delimiterTextForTokenFiled:)]) {
+        return [self.dataSource delimiterTextForTokenFiled:self];
+    }
+    
+    return @",";
 }
 
 - (NSUInteger)numberOfTokens
