@@ -22,6 +22,9 @@
 
 #import "VENToken.h"
 
+static const CGFloat kTWNumberPreventSharpEdge = 2;
+static const CGFloat kTWTitlePadding = 6;
+
 @interface VENToken ()
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -42,7 +45,7 @@
 
 - (void)setUpInit
 {
-    self.backgroundView.layer.cornerRadius = 5;
+    self.backgroundView.layer.cornerRadius = (CGRectGetHeight(self.bounds) / 2) - kTWNumberPreventSharpEdge;;
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapToken:)];
     self.colorScheme = [UIColor blueColor];
     self.titleLabel.textColor = self.colorScheme;
@@ -54,7 +57,7 @@
     self.titleLabel.text = text;
     self.titleLabel.textColor = self.colorScheme;
     [self.titleLabel sizeToFit];
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3, CGRectGetHeight(self.frame));
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3 + kTWTitlePadding, CGRectGetHeight(self.frame));
     [self.titleLabel sizeToFit];
 }
 
