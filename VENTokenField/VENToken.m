@@ -23,7 +23,7 @@
 #import "VENToken.h"
 
 static const CGFloat kTWNumberPreventSharpEdge = 2;
-static const CGFloat kTWTitlePadding = 6;
+static const CGFloat kTWTitlePadding = 16;
 
 @interface VENToken ()
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
@@ -56,9 +56,11 @@ static const CGFloat kTWTitlePadding = 6;
 {
     self.titleLabel.text = text;
     self.titleLabel.textColor = self.colorScheme;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.titleLabel sizeToFit];
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3 + kTWTitlePadding, CGRectGetHeight(self.frame));
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + kTWTitlePadding, CGRectGetHeight(self.frame));
     [self.titleLabel sizeToFit];
+    self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.backgroundView.frame) + ((CGRectGetWidth(self.backgroundView.bounds) - CGRectGetWidth(self.titleLabel.bounds)) / 2), CGRectGetMinY(self.titleLabel.frame), CGRectGetWidth(self.titleLabel.bounds), CGRectGetHeight(self.titleLabel.bounds));
 }
 
 - (void)setHighlighted:(BOOL)highlighted
